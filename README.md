@@ -28,19 +28,48 @@ However, the remaining flip-flops should be made ready to toggle only when all l
 
 **Procedure**
 
-/* write all the steps invloved */
+1. Define module: Create exp11 with inputs clk, rstn and 4-bit output register out.
+2. Declare ports: Specify input clk, rstn; and output reg [3:0] out;.
+3. Set clocked process: Write always @(posedge clk) for synchronous operation.
+4. Implement reset: If !rstn, assign out <= 4'b0000 (active-low synchronous clear).
+5. Increment counter: Else, update out <= out + 1 on each rising clock edge.
+6. Verify behavior: Simulate by toggling rstn low→high and confirm count 0→15 then rollover to 0.
 
 **PROGRAM**
 
 /* Program for flipflops and verify its truth table in quartus using Verilog programming. 
 
-Developed by: RegisterNumber:
+Developed by: Eswar S
+
+RegisterNumber: 25017992
 */
+
+```
+module exp11 (out,clk,rstn); 
+input clk,rstn;
+output reg [3:0] out;
+always @ (posedge clk)
+begin 
+	if(!rstn) 
+		out<=0; 
+	else 
+		out <= out+1; 
+end 
+endmodule
+```
 
 **RTL LOGIC UP COUNTER**
 
+<img width="1289" height="555" alt="image" src="https://github.com/user-attachments/assets/ec20fcf6-7de8-4172-b854-7773bcc02c74" />
+
 **TIMING DIAGRAM FOR IP COUNTER**
+
+<img width="1919" height="638" alt="image" src="https://github.com/user-attachments/assets/9faa0987-1384-4b9b-a8cb-ff34aea0ee42" />
 
 **TRUTH TABLE**
 
+<img width="400" height="442" alt="image" src="https://github.com/user-attachments/assets/a261ca50-b491-4889-98c3-aedad595a813" />
+
 **RESULTS**
+
+The synchronous up counter successfully increments its 4‑bit output on each rising clock edge. When reset is applied, the counter clears to zero and resumes counting once reset is released.
